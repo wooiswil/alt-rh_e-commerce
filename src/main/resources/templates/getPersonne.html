@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www/thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vos informations</title>
+</head>
+
+<body>
+    <h3>Voici les informations rentrées, veuillez à bien les verifier</h3>
+    <p th:utext="${nom}"></p>
+    <!-- th:utext ==> permet l'affichage de la valeur de la variable ${nom}  -->
+    <p th:utext="${prenom}"></p>
+    <p th:utext="${email}"></p>
+    <p th:utext="${age}"></p>
+    <p th:utext="${tel}"></p>
+
+</body>
+
+</html>

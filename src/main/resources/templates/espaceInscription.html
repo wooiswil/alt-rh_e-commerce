@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Espace utilisateur</title>
+</head>
+<body>
+    
+    <div th:if="${btn == btnIns}">
+    <h3>Voici les informations rentrées pour votre inscription</h3>
+	    <!-- th:utext ==> permet l'affichage de la valeur de la variable ${nom}  -->
+    	<p th:utext="${'Nom : '+nom}"></p>
+	    <p th:utext="${'Prenom : '+prenom}"></p>
+	    <p th:utext="${'Email : '+email}"></p>
+	    <p th:utext="${'Adresse : '+adresse}"></p>
+	    <p th:utext="${'Telephone : '+tel}"></p>
+    </div>
+    
+    <div th:if="${btn == btnCo}">
+    <h3 th:utext="${'Bonjour : '+email}"></h3>
+	    <p th:utext="${'Email de connexion : '+email}"></p>
+    </div>
+    
+    
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Connexion</title>
+</head>
+<body>
+<!-- en thymeleaf la condition c'est ==> th:if= "${nomAttribut setté dans la fonction}"  -->
+<!--      condition si email est !=                   affiche un message avec la concatenation     -->
+<p th:if="${email != null}" th:utext="${'Votre email est : '+email}"></p>
+</body>
+</html>
