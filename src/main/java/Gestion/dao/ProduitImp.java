@@ -32,17 +32,34 @@ public class ProduitImp {
 		return listPrd;
 	}
 	
+	// update
 	public void modPrd(Produit p) {
 		
 		prdInterface.save(p);
 		
 	}
 	
-	
+	// delete
 	public void rmUser(int idUser) {
 		
 		prdInterface.deleteById(idUser);
 		
 	}
 	
+	// find by id
+	public Produit searchPrd(int idPrd) {
+		
+		Produit resById = prdInterface.findById(idPrd).get();
+		
+		return resById;
+	}
+	
+	// find by name
+	
+	public Produit resPrd(String designation) {
+		
+		Produit prdRes = prdInterface.findByDesignation(designation);
+		
+		return prdRes;
+	}
 }

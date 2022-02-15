@@ -2,7 +2,6 @@ package Gestion.dao;
 
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,15 +57,13 @@ public class UserImp  {
 	}
 	
 	
-	// func d'auth
+	// func d'auth pour email
 	public User authUser(String email) {
 		
 		// recherche par email
 		User resAuth =  interfaceUser.findByEmail(email);
 		
 		return resAuth;
-		
-		
 	}
 	
 

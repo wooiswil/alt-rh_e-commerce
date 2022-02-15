@@ -79,10 +79,10 @@ public class UserController {
 					System.out.println("Email incorrect");
 					// affichage d'un message d'erreur en cas d'identifiants invalides
 					session.setAttribute("msgE", "Email " + email + " incorrect");
-					
+					return "redirect:/"; 
 					
 					// instruction si email dans la bdd ==> verif du mdp
-				}else {
+				} else {
 					session.setAttribute("MailExist", email);
 					// verif email de form == email bdd
 					if(resSearch.getMdp().equals(mdp)) {
@@ -92,7 +92,7 @@ public class UserController {
 						session.setAttribute("usrID", resSearch.getId());
 						
 						System.out.println(email);
-						
+						session.setAttribute("msgE", null);
 						return "redirect:/"; 
 					} else {
 						// instruction si mdp non dans la bdd

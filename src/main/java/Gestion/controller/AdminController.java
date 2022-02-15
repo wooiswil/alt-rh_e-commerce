@@ -1,8 +1,12 @@
 package Gestion.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import Gestion.dao.EmployeeImp;
 import Gestion.dao.PanierImp;
 import Gestion.dao.ProduitImp;
 import Gestion.dao.UserImp;
-import Gestion.model.Panier;
+import Gestion.model.Employee;
 import Gestion.model.Produit;
 import Gestion.model.User;
 
@@ -31,7 +38,16 @@ public class AdminController {
 		
 		@Autowired // ==> pour les class d'implémentation
 		PanierImp cartImp;
+		
+		@Autowired // ==> pour les class d'implémentation
+		EmployeeImp empImp;
+		
+		// variable static pour donner le dossier de l'url pour le stockage
+		private static String chUpload = "src/main/resources/static/uploads/";
 	
+		// variable static pour donner le dossier de l'url pour le stockage
+		private static String prdUpload = "src/main/resources/static/prdUploads/";
+		
 		// login section
 		
 	// return page login administrateur
@@ -50,18 +66,37 @@ public class AdminController {
 		// Verifie les champs de formulaire
 		if(email != null && mdp != null) {
 			
+			
+			
 			// si les champs sont conformes aux conditions
 			if(email.equals("admin@gmail.com") && mdp.equals("admin2022")) {
 				
 				// creation des attributs puis en enregistrement avec la session
 				mod.addAttribute("email", email);
 				mod.addAttribute("mdp", mdp);
+				session.setAttribute("role", "Super-admin");
 				session.setAttribute("email", email);
 
 				
 				// redirection vers le homeAdmin "admin/dashboard" si les conditions sont remplies
 				return "redirect:/homeAdmin";
-			} else {
+			} else if (empImp.authEmailEmp(email) != null){
+				if (empImp.authEmailEmp(email).getPassword().equals(mdp)) {
+					
+					// creation des attributs puis en enregistrement avec la session
+					session.setAttribute("role", empImp.authEmailEmp(email).getRole());
+					return "redirect:/homeAdmin";
+				}
+				// verif 
+				System.out.println("Les identifiants rentrés sont : "+ email + mdp);
+				
+				// creation des attributs puis en enregistrement avec la session
+				mod.addAttribute("email", email);
+				mod.addAttribute("mdp", mdp);
+				session.setAttribute("email", email);
+				// redirection vers le homeAdmin "admin/" si les conditions sont remplies
+			}
+				else {
 				
 				// affichage d'un message d'erreur en cas d'identifiants invalides
 				mod.addAttribute("msg", "Email/Password incorrect");
@@ -81,10 +116,11 @@ public class AdminController {
 			Model m) {
 		
 		// en cas de déconnexion, l'user est redirigé vers la page de login sinon
-		if(s.getAttribute("email") != null) {
+		if(s.getAttribute("role") != null) {
 			
 			// permet d'avoir le nom de l'user connecté affiché dans le dashboard
 			m.addAttribute("email", s.getAttribute("email"));
+			m.addAttribute("role", s.getAttribute("role"));
 			return "admin/dashboard";
 		} else {
 			s.setAttribute("msgE", "Veuillez vous connecter !");
@@ -151,7 +187,7 @@ public class AdminController {
 		
 		// creation d'attributs pour l'affichage
 		m.addAttribute("user", listUser);
-		
+		System.out.println("Il y a " + listUser.size() + " users dans la base de données");
 		return "admin/affichageUser";
 	}
 	
@@ -168,6 +204,7 @@ public class AdminController {
 		return "redirect:/getUser";
 	}
 	
+	
 	// produit section
 	
 	// ====> Modif
@@ -180,12 +217,163 @@ public class AdminController {
 		List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
 		
 		// creation d'attributs pour l'affichage
-		m.addAttribute("prd", listPrd);
-		
+		m.addAttribute("produit", listPrd);
+		System.out.println("Il y a  "+listPrd.size() + " produits dans la base de données");
 		return "admin/affichageProduit";
 	}
 	
 	// ====> Supp
+	@RequestMapping("/deletePrd/{id}")
+	public String rmPrd(@PathVariable("id") int idPrd) {
+		
+		//appelle func delete
+		prdImp.rmUser(idPrd);
+		
+		return "redirect:/getPrd";
+	}
 	
-	// panier section
+	// employee section
+	
+	// ====> liste emp
+	@RequestMapping("/getEmp")
+	public String getEmp(Model m) {
+		
+		// creation de la collection pour l'affichage des Emp
+		List<Employee> listEmp = (List<Employee>) empImp.getEmpList();
+		
+		// creation d'attribut pour l'affichage
+		m.addAttribute("emp", listEmp);
+		System.out.println("Il y a " + listEmp.size() + " enregistrements d'employees dans la base de données");
+		return "admin/affichageEmployee";
+	}
+	
+	// ====> del emp
+	@RequestMapping("/deleteEmp/{id}")
+	public String rmEmp(@PathVariable("id") int idEmp) {
+		
+		// appelle func delete
+		empImp.rmEmp(idEmp);
+		return "redirect:/getEmp";
+	}
+	
+	// ====> mod Prd
+	@RequestMapping("/modPrd")
+	public String toModPrd(
+			
+			// recuperation des champs de formulaire 
+			@RequestParam(name="ref", required = false)String ref,
+			@RequestParam(name="designation", required = false) String designation,
+			@RequestParam(name="prix", required = false) String prix, 
+			@RequestParam(name="poids", required = false) String poids, 
+			@RequestParam(name="qteProduit", required = false) String qteProduit,
+			@RequestParam(name="photo", required = false) MultipartFile photo,
+			@RequestParam(name= "id", required = false) String id,
+			RedirectAttributes rA)  throws IOException  {
+		
+		// Etape 1 ==> recherche de l'enregistrement par l'id
+		Produit p = prdImp.searchPrd(Integer.parseInt(id));
+		
+		// pour verifier si il y a une piee jointe chargée, on utilise isEmpty()
+		if(photo.isEmpty()) {
+			
+			// afficher un msg selon les conditions dans une page web en Spring boot ==> ObjectRedirectAttribute.addFlashAttribute("nomAttr", "valeur de msg")
+			rA.addFlashAttribute("msg", "Vous avez oublié d'ajouter une photo");
+			System.out.println("test");
+			return "redirect:/getPrd";
+		} else {
+			
+			// affichage du nom de pièce jointe (avec getOriginalFileName()
+			System.out.println("Photo ajouté : " + photo.getOriginalFilename());
+			
+			// stocker la photo dans static/uploads avec l'objet getByte()
+			byte[] bytesPrd = photo.getBytes();
+						
+			// creation d'objet path pour stocker
+			Path phPrd = Paths.get(prdUpload+photo.getOriginalFilename());
+						
+			// pour upload dans ph
+			Files.write(phPrd, bytesPrd);
+						
+			// affichage du message pour le nom de l'upload
+			rA.addFlashAttribute("Mess", "La nouvelle photo uploadé est : "+ photo.getOriginalFilename());
+			
+			// etape 2 ==> setter les valeurs pour la modification
+			// setter les valeurs des champs du form dans les attributs de l'entité (Employee)
+			
+			p.setRef(ref);
+			p.setDesignation(designation);
+			p.setPrix(Double.parseDouble(prix));
+			p.setPoids(Double.parseDouble(poids));
+			p.setQteProduit(Integer.parseInt(qteProduit));
+			p.setPhoto(photo.getOriginalFilename());
+			
+			// appelle func de modification
+			prdImp.modPrd(p);
+			
+			// verification 
+			System.out.println(p.getId());
+			
+			
+			return "redirect:/getPrd";
+		}
+	}
+	
+	
+	// ====> mod emp
+	@RequestMapping("/modEmp")
+	public String toModEmp(
+			
+			// recuperation des champs de formulaire 
+			@RequestParam(name="nom", required = false)String nom,
+			@RequestParam(name="prenom", required = false) String prenom,
+			@RequestParam(name= "email", required = false) String email,
+			@RequestParam(name= "mdp", required = false) String mdp,
+			@RequestParam(name= "role", required = false) String role,
+			@RequestParam(name="photo", required = false) MultipartFile photo, 
+			@RequestParam(name= "id", required = false) String id,
+			RedirectAttributes rA
+			) throws IOException {
+		
+		// Etape 1 ==> recherche de l'enregistrement par l'id
+		Employee emp = empImp.searchEmp(Integer.parseInt(id));
+		
+		// pour verifier si il y a une piee jointe chargée, on utilise isEmpty()
+		if (photo.isEmpty()) {
+			
+					// afficher un msg selon les conditions dans une page web en Spring boot ==> ObjectRedirectAttribute.addFlashAttribute("nomAttr", "valeur de msg")
+					rA.addFlashAttribute("msg", "Vous avez oublié d'ajouter une photo");
+					System.out.println("test");
+					return "redirect:/getEmp";
+			} else {
+					
+					// affichage du nom de pièce jointe (avec getOriginalFileName()
+					System.out.println("Photo " + photo.getOriginalFilename());
+					
+//					// stocker la photo dans static/uploads avec l'objet getByte() || throws IOException 
+					byte [] bytes = photo.getBytes();
+			
+//					// creation d'objet path pour stocker || chUpload ==> variable static (scope global)
+					Path ph =Paths.get(chUpload+photo.getOriginalFilename());
+					
+//					// pour upload dans ph
+					Files.write(ph, bytes);
+					
+					// affichage du message pour le nom de l'upload
+					rA.addFlashAttribute("Mess", "Nouvelle photo : "+ photo.getOriginalFilename() +" uploadé pour l'employee " + nom);
+					
+
+					// etape 2 ==> setter les valeurs pour la modification
+					// setter les valeurs des champs du form dans les attributs de l'entité (Employee)
+					emp.setNom(nom);
+					emp.setPrenom(prenom);
+					emp.setEmail(email);
+					emp.setPassword(mdp);
+					emp.setRole(role);
+					emp.setPhoto(photo.getOriginalFilename());
+					
+					empImp.modEmp(emp);
+					System.out.println(emp.getId());
+		return "redirect:/getEmp";
+	}
+	}
 }

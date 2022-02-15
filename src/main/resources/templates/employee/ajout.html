@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ajout Employee</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Hi neewbie !</h1>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
+									</div>
+                                    <div class="alert alert-success" role="alert" th:if="${Mess}" th:utext="${Mess}">
+									</div>
+                                    <form th:action="@{/Employee/AddEmp}" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            Nom :<input type="text" class="form-control form-control-user"
+                                                id="nom" 
+                                                placeholder="nom" name="nom" th:value="${nom}">
+                                        </div>
+                                        <div class="form-group">
+                                            Prenom :<input type="text" class="form-control form-control-user"
+                                                id="prenom" placeholder="prenom" name="prenom" th:value="${prenom}">
+                                        </div>
+                                        <div class="form-group">
+                                            Email :<input type="email" class="form-control form-control-user"
+                                                id="email" placeholder="email" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            Password :<input type="password" class="form-control form-control-user"
+                                                id="mdp" placeholder="password" name="mdp">
+                                        </div>
+                                        <div class="form-group">
+										    <label for="role" class="form-control form-control-user">Role</label>
+										    <select class="form-control form-control-user" id="role" required name="role">
+										      <option selected disabled value="">Choisir un role ...</option>
+										      <option value="admin">Administrateur</option>
+										      <option value="magasinier">Magasinier</option>
+										      <option value="rh">Rh</option>
+										    </select>
+										  </div>
+                                        <div class="form-group">
+                                            Photo :<input type="file" class="form-control form-control-user"
+                                                id="photo" name="photo">
+                                        </div>
+                                        <div class="form-group">
+                                        </div>
+                                        <button type="submit"  class="btn btn-primary btn-user btn-block">
+                                            Ajouter
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="adminTemplate/vendor/jquery/jquery.min.js"></script>
+    <script src="adminTemplate/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="adminTemplate/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="adminTemplate/js/sb-admin-2.min.js"></script>
+
+</body>
+</html>

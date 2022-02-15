@@ -8,5 +8,31 @@
 <!-- en thymeleaf la condition c'est ==> th:if= "${nomAttribut setté dans la fonction}"  -->
 <!--      condition si email est !=                   affiche un message avec la concatenation     -->
 <p th:if="${email != null}" th:utext="${'Votre email est : '+email}"></p>
+
+redirect:/getEmp
+
+// Instance de la classe Employee
+		Employee empl = new Employee();
+		
+		// setter les valeurs des champs du form dans les attributs de l'entité (Employee)
+		empl.setNom(nom);
+		empl.setPrenom(prenom);
+		empl.setPhoto(photo);
+		
+		// Appelle de la methode d'implémentation ==> ici l'ajout 
+		empImp.addEmp(empl);
+		
+		// verification 
+		System.out.println("Ajout de l'employee : " +empl.getNom() + " dans la base de données.");
+		
+		
+		
+			// recuperation des champs de formulaire 
+			@RequestParam(name="nom", required = false)String nom,
+			@RequestParam(name="prenom", required = false) String prenom,
+			@RequestParam(name="photo", required = false) String photo, 
+			Model mod
+			
+
 </body>
 </html>

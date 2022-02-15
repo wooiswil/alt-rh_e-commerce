@@ -1,14 +1,23 @@
 package Gestion.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Gestion.dao.ProduitImp;
+import Gestion.model.Produit;
+
 @Controller
 public class DefaultController {
+	
+	@Autowired
+	ProduitImp prdImp;
 
 	@RequestMapping("/")
 	public String toIndex(HttpSession session, Model mo) {
@@ -20,12 +29,17 @@ public class DefaultController {
 			String userCo = session.getAttribute("usr").toString();
 			System.out.println(userCo);
 			mo.addAttribute("userCo", userCo);
-		} 
+		}
+		
 		if(session.getAttribute("msgE") != null) {
 
 			mo.addAttribute("msgE", session.getAttribute("msgE"));
-		}
-		
+		} 
+		// pour l'affichage des produits
+				List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
+				System.out.println(listPrd.size());
+				// creation d'attributs pour l'affichage
+				mo.addAttribute("produit", listPrd);
 		return "index"; 
 	}
 	
@@ -33,7 +47,7 @@ public class DefaultController {
 	public String toLeave(HttpSession session, Model mo) {
 			
 		// affectation de la valeur null à la session de l'user qui permet la deconnexion
-			session.setAttribute("user", null);
+			session.setAttribute("usr", null);
 			
 		return "redirect:/"; 
 	}

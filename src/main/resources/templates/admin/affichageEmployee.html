@@ -9,16 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Liste Produits</title>
+    <title>SB Admin 2 - Liste Employees</title>
 
     <!-- Custom fonts for this template-->
-    <link href="/adminTemplate/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="adminTemplate/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/adminTemplate/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="adminTemplate/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -26,6 +26,43 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
+    
+     <!-- Modal Add User start -->
+							<div class="modal fade" id="modalAddEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Ajout nouvel employee</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<form action="" method="post" id="signForm" enctype="multipart/form-data">
+												<div class="form-group">
+													<label for="nom" class="col-form-label">Nom  :</label>
+													<input type="text" class="form-control" id="nom" name="nom">
+												</div>
+												<div class="form-group">
+													<label for="prenom" class="col-form-label">Prenom :</label>
+													<input type="text" class="form-control" id="prenom" name="prenom">
+												</div>
+												<div class="form-group">
+													<label for="photo" class="col-form-label">Photo :</label>
+													<input type="file" class="form-control" id="photo" name="photo">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+													<button type="submit" class="btn btn-primary">Ajouter</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal add User end -->
+    
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -56,13 +93,22 @@
                 Interface
             </div>
 
-            
             <!-- Nav Item - Employees Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/getEmp" >
-                    <i class="fas fa-fw fa-wrench"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Gestion des employees</span>
                 </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#collapseTwo">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Actions :</h6>
+                        <a class="collapse-item" href="/getEmp" data-toggle="modal"
+									data-target="#modalAddEmp">Ajouter employees</a>
+                    </div>
+                </div>
+            </li>
+            
                 
             <!-- Nav Item - Panier Collapse Menu -->
             <li class="nav-item">
@@ -73,29 +119,18 @@
                 
             <!-- Nav Item - Produits Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="/getPrd" >
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Gestion des produits</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Actions :</h6>
-                        <a class="collapse-item" href="#" data-toggle="modal"
-									data-target="#modalAddPrd">Ajouter un produit</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Nav Item - Users Collapse Menu -->
+
+            <!-- Nav Item - User Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/getUser" >
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Gestions des utilisateurs</span>
+                    <span>Gestion des utilisateurs</span>
                 </a>
-
-
+                
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -364,42 +399,51 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                 
-                <!-- Modal add prd start -->
-							<div class="modal fade" id="modalAddPrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                <!-- Modal add emp start -->
+							<div class="modal fade" id="modalAddEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 								aria-hidden="true">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Ajout produit</h5>
+											<h5 class="modal-title" id="exampleModalLabel">Ajout employee</h5>
 											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
 										<div class="modal-body">
-											<form action="getFormPrd" method="post" id="signForm">
-												<div class="form-group">
-													<label for="ref" class="col-form-label">Reference :</label>
-													<input type="text" class="form-control" id="ref" name="ref">
+										<div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
+											</div>
+		                                    <div class="alert alert-success" role="alert" th:if="${Mess}" th:utext="${Mess}">
+											</div>
+											<form action="getFormPrd" method="post" id="signForm" enctype="multipart/form-data">
+												 <div class="form-group">
+													<label for="nom" class="col-form-label">Nom  :</label>
+													<input type="text" class="form-control" id="nom" name="nom">
 												</div>
 												<div class="form-group">
-													<label for="designation" class="col-form-label">Designation :</label>
-													<input type="text" class="form-control" id="designation" name="designation">
+													<label for="prenom" class="col-form-label">Prenom :</label>
+													<input type="text" class="form-control" id="prenom" name="prenom">
 												</div>
 												<div class="form-group">
-													<label for="prix" class="col-form-label">Prix (en euros) :</label>
-													<input type="text" class="form-control" id="prix" name="prix">
+													<label for="email" class="col-form-label">Email :</label>
+													<input type="email" class="form-control" id="email" name="email">
 												</div>
 												<div class="form-group">
-													<label for="poids" class="col-form-label">Poids (en gr):</label>
-													<input type="text" class="form-control" id="poids" name="poids">
+													<label for="password" class="col-form-label">Password :</label>
+													<input type="password" class="form-control" id="mdp" name="mdp">
 												</div>
 												<div class="form-group">
-													<label for="qte" class="col-form-label">Quantite stock:</label>
-													<input type="text" class="form-control" id="qte" name="qteProduit">
+													<label for="role" class="col-form-label">Role :</label>
+													 <select class="form-control " id="role" required>
+													      <option selected disabled value="">Choisir un role ...</option>
+													      <option value="admin">Administrateur</option>
+													      <option value="magasinier">Magasinier</option>
+													      <option value="rh">Rh</option>
+												    </select>
 												</div>
 												<div class="form-group">
-													<label for="img" class="col-form-label">Image :</label>
-													<input type="file" class="form-control" id="img" name="img">
+													<label for="photo" class="col-form-label">Photo :</label>
+													<input type="file" class="form-control" id="photo" name="photo">
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -414,79 +458,95 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+                    <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
+											</div>
+		                                    <div class="alert alert-success" role="alert" th:if="${Mess}" th:utext="${Mess}">
+											</div>
                     	<table class="table table-dark">
 						  <thead>
 						    <tr>
-						      <th scope="col">Id produit</th>
-						      <th scope="col">Reference</th>
-						      <th scope="col">Designation</th>
-						      <th scope="col">Prix</th>
-						      <th scope="col">Poids</th>
-						      <th scope="col">Quantité produits</th>
-						      <th scope="col">Modifier</th>
-						      <th scope="col">Supprimer</th>
+						      <th scope="col">Id Employee</th>
+						      <th scope="col">Nom</th>
+						      <th scope="col">Prenom</th>
+						      <th scope="col">Email</th>
+						      <th scope="col">Role</th>
+						      <th scope="col">Photo</th>
 						    </tr>
 						  </thead>
 						  <tbody>
-						    <tr th:each="prd:${produit}">
+						    <tr th:each="emp:${emp}">
 						    
-						    <!-- Modal inscription start -->
-                                        <div class="modal fade" th:id="'modalEditPrd'+${prd.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						    <!-- Modal modification start -->
+                                        <div class="modal fade" th:id="'modalEditEmp'+${emp.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modification produit
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modification employee
                                                         </h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="modPrd" method="post" id="signForm" enctype="multipart/form-data">
-                                                        <input type="hidden" name="id" th:value="${prd.id}">
-                                                            <div class="form-group">
-                                                                <label for="nom" class="col-form-label">Reference :</label>
-                                                                <input type="text" class="form-control" id="nom" name="ref" th:value="${prd.ref}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="designation" class="col-form-label">Designation :</label>
-                                                                <input type="text" class="form-control" id="designation" name="designation" th:value="${prd.designation}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="prix" class="col-form-label">Prix :</label>
-                                                                <input type="number" class="form-control" id="prix" name="prix" th:value="${prd.prix}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="poids" class="col-form-label">Poids :</label>
-                                                                <input type="password" class="form-control" id="poids" name="poids" th:value="${prd.poids}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="qteProduit" class="col-form-label">Quantité disponible:</label>
-                                                                <input type="number" class="form-control" id="qteProduit" name="qteProduit" th:value="${prd.qteProduit}">
-                                                            </div>
-                                                            <div class="form-group">
-																<label for="photo" class="col-form-label">Image :</label>
-																<input type="file" class="form-control" id="photo" name="photo">
-															</div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                                                <button type="submit" name="btnFormPrd" value="btnModPrd" class="btn btn-primary">Modifier</button>
-                                                            </div>
+                                                        <form action="modEmp" method="post" id="signForm" enctype="multipart/form-data">
+                                                        <input type="hidden" name="id" th:value="${emp.id}">
+                                                           <div class="form-group">
+													<label for="nom" class="col-form-label">Nom  :</label>
+													<input type="text" class="form-control" id="nom" name="nom" th:value="${emp.nom}">
+												</div>
+												<div class="form-group">
+													<label for="prenom" class="col-form-label">Prenom :</label>
+													<input type="text" class="form-control" id="prenom" name="prenom" th:value="${emp.prenom}">
+												</div>
+												<div class="form-group">
+													<label for="email" class="col-form-label">Email :</label>
+													<input type="text" class="form-control" id="email" name="email" th:value="${emp.email}">
+												</div>
+												<div class="form-group">
+													<label for="mdp" class="col-form-label">Password :</label>
+													<input type="password" class="form-control" id="password" name="password" th:value="${emp.password}">
+												</div>
+												<div class="form-group">
+													<label for="role" class="col-form-label">Role :</label>
+													 <select class="form-control form-control-user" id="role" required name="role" th:if="${emp.role != null}">
+													      <option selected disabled value="">Choisir un role ...</option>
+													      <!-- Cas 1 = role selectionné ==> Pour obtenir option selectionnée par défaut avec selected= "select" -->
+													      <!-- "unless" ==> else-->
+													      <option value="admin" th:selected="${emp.role == 'admin'}">Administrateur</option>
+													      <option value="magasinier" th:selected="${emp.role == 'magasinier'}">Magasinier</option>
+													      <option value="rh" th:selected="${emp.role == 'rh'}" >Rh</option>
+												    </select>
+													 <select class="form-control form-control-user" id="role" required name="role" th:if="${emp.role == null}">
+													      <option selected disabled value="">Choisir un role ...</option>
+													      <!-- Cas 2 = les 3 options sont aafichées -->
+													      <option value="admin" >Administrateur</option>
+													      <option value="magasinier" >Magasinier</option>
+													      <option value="rh" >Rh</option>
+												    </select>
+												</div>
+												<div class="form-group">
+													<label for="photo" class="col-form-label">Photo :</label>
+													<input type="file" class="form-control" id="photo" name="photo">
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="javascript:window.close()">Annuler</button>
+													<button type="submit" class="btn btn-primary">Modifier</button>
+												</div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Modal end -->
-						      <th scope="row" th:utext="${prd.id}"></th>
-						      <td th:utext="${prd.ref}"></td>
-						      <td th:utext="${prd.designation}"></td>
-						      <td th:utext="${prd.prix}"></td>
-						      <td th:utext="${prd.poids}"></td>
-						      <td th:utext="${prd.qteProduit}"></td>
-						      <td ><img th:src="@{${'/prdUploads/'+prd.photo}}" style="border-radius: 30%" width=70 height=70 > </td>
-						      <td > <a href="#" class="btn btn-outline-danger" onclick="if(!confirm('Voulez-vous modifier ?')) return false" data-toggle="modal" th:attr="data-target='#modalEditPrd'+${prd.id}">Modifier</a></td>
-						      <td > <a th:href="@{'/deletePrd/'+${prd.id}}" class="btn btn-outline-warning" onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a></td>
+						      <th scope="row" th:utext="${emp.id}"></th>
+						      <td th:utext="${emp.nom}"></td>
+						      <td th:utext="${emp.prenom}"></td>
+						      <td th:utext="${emp.email}"></td>
+						      <td th:utext="${emp.role}"></td>
+						      <!-- affichage d'un media en thymeleaf -->
+						      <td ><img th:src="@{${'/uploads/'+emp.photo}}" style="border-radius: 50%" width=50 height=50 > </td>
+						      <td > <a href="#" class="btn btn-outline-danger" onclick="if(!confirm('Voulez-vous modifier ?')) return false" data-toggle="modal" th:attr="data-target='#modalEditEmp'+${emp.id}">Modifier</a></td>
+						      <td > <a th:href="@{'/deleteEmp/'+${emp.id}}" class="btn btn-outline-warning"  onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a></td>
 						    </tr>
 						  </tbody>
 						</table>
@@ -538,14 +598,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/adminTemplate/vendor/jquery/jquery.min.js"></script>
-    <script src="/adminTemplate/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="adminTemplate/vendor/jquery/jquery.min.js"></script>
+    <script src="adminTemplate/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/adminTemplate/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="adminTemplate/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/adminTemplate/js/sb-admin-2.min.js"></script>
+    <script src="adminTemplate/js/sb-admin-2.min.js"></script>
 
 </body>
 

@@ -12,7 +12,13 @@ public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	String ref, designation;
+	String ref, designation, photo;
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	double prix, poids;
 	int qteProduit;
 	
