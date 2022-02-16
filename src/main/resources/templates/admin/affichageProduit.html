@@ -28,9 +28,9 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-       <th:block th:include="admin/sidebar"></th:block>
-       <!-- End of Sidebar -->
-       
+        <th:block th:include="admin/sidebar"></th:block>
+        <!-- End of Sidebar -->
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -153,8 +153,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -165,8 +164,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -177,8 +175,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -210,13 +207,12 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:utext="${email}"></span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" >
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -243,133 +239,183 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                
-                <!-- Modal add prd start -->
-							<div class="modal fade" id="modalAddPrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Ajout produit</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form action="getFormPrd" method="post" id="signForm">
-												<div class="form-group">
-													<label for="ref" class="col-form-label">Reference :</label>
-													<input type="text" class="form-control" id="ref" name="ref">
-												</div>
-												<div class="form-group">
-													<label for="designation" class="col-form-label">Designation :</label>
-													<input type="text" class="form-control" id="designation" name="designation">
-												</div>
-												<div class="form-group">
-													<label for="prix" class="col-form-label">Prix (en euros) :</label>
-													<input type="text" class="form-control" id="prix" name="prix">
-												</div>
-												<div class="form-group">
-													<label for="poids" class="col-form-label">Poids (en gr):</label>
-													<input type="text" class="form-control" id="poids" name="poids">
-												</div>
-												<div class="form-group">
-													<label for="qte" class="col-form-label">Quantite stock:</label>
-													<input type="text" class="form-control" id="qte" name="qteProduit">
-												</div>
-												<div class="form-group">
-													<label for="img" class="col-form-label">Image :</label>
-													<input type="file" class="form-control" id="img" name="img">
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-													<button type="submit" class="btn btn-primary">Ajouter</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Modal add prd end -->
+
+                    <!-- Modal add prd start -->
+                    <div class="modal fade" id="modalAddPrd" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ajout produit</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="getFormPrd" method="post" id="signForm">
+                                        <div class="form-group">
+                                            <label for="ref" class="col-form-label">Reference :</label>
+                                            <input type="text" class="form-control" id="ref" name="ref">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="designation" class="col-form-label">Designation :</label>
+                                            <input type="text" class="form-control" id="designation" name="designation">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prix" class="col-form-label">Prix (en euros) :</label>
+                                            <input type="text" class="form-control" id="prix" name="prix">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="poids" class="col-form-label">Poids (en gr):</label>
+                                            <input type="text" class="form-control" id="poids" name="poids">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="qte" class="col-form-label">Quantite stock:</label>
+                                            <input type="text" class="form-control" id="qte" name="qteProduit">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="img" class="col-form-label">Image :</label>
+                                            <input type="file" class="form-control" id="img" name="img">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Annuler</button>
+                                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal add prd end -->
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-                    	<table class="table table-dark">
-						  <thead>
-						    <tr>
-						      <th scope="col">Id produit</th>
-						      <th scope="col">Reference</th>
-						      <th scope="col">Designation</th>
-						      <th scope="col">Prix</th>
-						      <th scope="col">Poids</th>
-						      <th scope="col">Quantité produits</th>
-						      <th scope="col">Modifier</th>
-						      <th scope="col">Supprimer</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr th:each="prd:${produit}">
-						    
-						    <!-- Modal inscription start -->
-                                        <div class="modal fade" th:id="'modalEditPrd'+${prd.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modification produit
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
+                    <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
+                    </div>
+                    <div class="alert alert-success" role="alert" th:if="${Mess}" th:utext="${Mess}">
+                    </div>
+
+                    <!-- if role ==> 'super-admin' -->
+                    <table class="table table-dark" th:if="${role == 'Super-admin'}">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id produit</th>
+                                <th scope="col">Reference</th>
+                                <th scope="col">Designation</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">Poids</th>
+                                <th scope="col">Quantité produits</th>
+                                <th scope="col">Modifier</th>
+                                <th scope="col">Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="prd:${produit}">
+
+                                <!-- Modal modification produit start -->
+                                <div class="modal fade" th:id="'modalEditPrd'+${prd.id}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modifier produit
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="modPrd" method="post" id="signForm"
+                                                    enctype="multipart/form-data">
+                                                    <input type="hidden" name="id" th:value="${prd.id}">
+                                                    <div class="form-group">
+                                                        <label for="nom" class="col-form-label">Reference :</label>
+                                                        <input type="text" class="form-control" id="nom" name="ref"
+                                                            th:value="${prd.ref}">
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <form action="modPrd" method="post" id="signForm" enctype="multipart/form-data">
-                                                        <input type="hidden" name="id" th:value="${prd.id}">
-                                                            <div class="form-group">
-                                                                <label for="nom" class="col-form-label">Reference :</label>
-                                                                <input type="text" class="form-control" id="nom" name="ref" th:value="${prd.ref}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="designation" class="col-form-label">Designation :</label>
-                                                                <input type="text" class="form-control" id="designation" name="designation" th:value="${prd.designation}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="prix" class="col-form-label">Prix :</label>
-                                                                <input type="number" class="form-control" id="prix" name="prix" th:value="${prd.prix}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="poids" class="col-form-label">Poids :</label>
-                                                                <input type="password" class="form-control" id="poids" name="poids" th:value="${prd.poids}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="qteProduit" class="col-form-label">Quantité disponible:</label>
-                                                                <input type="number" class="form-control" id="qteProduit" name="qteProduit" th:value="${prd.qteProduit}">
-                                                            </div>
-                                                            <div class="form-group">
-																<label for="photo" class="col-form-label">Image :</label>
-																<input type="file" class="form-control" id="photo" name="photo">
-															</div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                                                <button type="submit" name="btnFormPrd" value="btnModPrd" class="btn btn-primary">Modifier</button>
-                                                            </div>
-                                                        </form>
+                                                    <div class="form-group">
+                                                        <label for="designation" class="col-form-label">Designation
+                                                            :</label>
+                                                        <input type="text" class="form-control" id="designation"
+                                                            name="designation" th:value="${prd.designation}">
                                                     </div>
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label for="prix" class="col-form-label">Prix :</label>
+                                                        <input type="number" class="form-control" id="prix" name="prix"
+                                                            th:value="${prd.prix}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="poids" class="col-form-label">Poids :</label>
+                                                        <input type="password" class="form-control" id="poids"
+                                                            name="poids" th:value="${prd.poids}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="qteProduit" class="col-form-label">Quantité
+                                                            disponible:</label>
+                                                        <input type="number" class="form-control" id="qteProduit"
+                                                            name="qteProduit" th:value="${prd.qteProduit}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="photo" class="col-form-label">Image :</label>
+                                                        <input type="file" class="form-control" id="photo" name="photo">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Fermer</button>
+                                                        <button type="submit" name="btnFormPrd" value="btnModPrd"
+                                                            class="btn btn-primary">Modifier</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <!-- Modal end -->
-						      <th scope="row" th:utext="${prd.id}"></th>
-						      <td th:utext="${prd.ref}"></td>
-						      <td th:utext="${prd.designation}"></td>
-						      <td th:utext="${prd.prix}"></td>
-						      <td th:utext="${prd.poids}"></td>
-						      <td th:utext="${prd.qteProduit}"></td>
-						      <td ><img th:src="@{${'/prdUploads/'+prd.photo}}" style="border-radius: 30%" width=70 height=70 > </td>
-						      <td > <a href="#" class="btn btn-outline-danger" onclick="if(!confirm('Voulez-vous modifier ?')) return false" data-toggle="modal" th:attr="data-target='#modalEditPrd'+${prd.id}">Modifier</a></td>
-						      <td > <a th:href="@{'/deletePrd/'+${prd.id}}" class="btn btn-outline-warning" onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a></td>
-						    </tr>
-						  </tbody>
-						</table>
+                                    </div>
+                                </div>
+                                <!-- Modal modification produit end -->
+
+                                <th scope="row" th:utext="${prd.id}"></th>
+                                <td th:utext="${prd.ref}"></td>
+                                <td th:utext="${prd.designation}"></td>
+                                <td th:utext="${prd.prix}"></td>
+                                <td th:utext="${prd.poids}"></td>
+                                <td th:utext="${prd.qteProduit}"></td>
+                                <td><img th:src="@{${'/prdUploads/'+prd.photo}}" style="border-radius: 30%" width=70
+                                        height=70> </td>
+                                <td> <a href="#" class="btn btn-outline-danger"
+                                        onclick="if(!confirm('Voulez-vous modifier ?')) return false"
+                                        data-toggle="modal" th:attr="data-target='#modalEditPrd'+${prd.id}">Modifier</a>
+                                </td>
+                                <td> <a th:href="@{'/deletePrd/'+${prd.id}}" class="btn btn-outline-warning"
+                                        onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- if role ==> 'magasinier' -->
+                    <table class="table table-dark" th:if="${role == 'magasinier'}">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id produit</th>
+                                <th scope="col">Reference</th>
+                                <th scope="col">Designation</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">Poids</th>
+                                <th scope="col">Quantité produits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="prd:${produit}">
+                                <th scope="row" th:utext="${prd.id}"></th>
+                                <td th:utext="${prd.ref}"></td>
+                                <td th:utext="${prd.designation}"></td>
+                                <td th:utext="${prd.prix}"></td>
+                                <td th:utext="${prd.poids}"></td>
+                                <td th:utext="${prd.qteProduit}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /.container-fluid -->
 

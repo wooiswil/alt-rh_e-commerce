@@ -85,15 +85,16 @@ public class AdminController {
 					
 					// creation des attributs puis en enregistrement avec la session
 					session.setAttribute("role", empImp.authEmailEmp(email).getRole());
+					System.out.println("test role " + empImp.authEmailEmp(email).getRole() );
 					return "redirect:/homeAdmin";
 				}
 				// verif 
-				System.out.println("Les identifiants rentrés sont : "+ email + mdp);
-				
-				// creation des attributs puis en enregistrement avec la session
-				mod.addAttribute("email", email);
-				mod.addAttribute("mdp", mdp);
-				session.setAttribute("email", email);
+//				System.out.println("Les identifiants rentrés sont : "+ email + mdp);
+//				
+//				// creation des attributs puis en enregistrement avec la session
+//				mod.addAttribute("email", email);
+//				mod.addAttribute("mdp", mdp);
+//				session.setAttribute("email", email);
 				// redirection vers le homeAdmin "admin/" si les conditions sont remplies
 			}
 				else {
@@ -180,13 +181,14 @@ public class AdminController {
 	
 	// ====> Liste
 	@RequestMapping("/getUser")
-	public String toGetUser(Model m) {
+	public String toGetUser(Model m, HttpSession s) {
 		
 		// pour l'affichage des utilisateurs
 		List<User> listUser = (List<User>) userImp.getUser();
 		
 		// creation d'attributs pour l'affichage
 		m.addAttribute("user", listUser);
+		m.addAttribute("role", s.getAttribute("role"));
 		System.out.println("Il y a " + listUser.size() + " users dans la base de données");
 		return "admin/affichageUser";
 	}
@@ -211,13 +213,14 @@ public class AdminController {
 	
 	// ====> Liste
 	@RequestMapping("/getPrd")
-	public String getPrd(Model m) {
+	public String getPrd(Model m, HttpSession s) {
 		
 		// pour l'affichage des produits
 		List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
 		
 		// creation d'attributs pour l'affichage
 		m.addAttribute("produit", listPrd);
+		m.addAttribute("role", s.getAttribute("role"));
 		System.out.println("Il y a  "+listPrd.size() + " produits dans la base de données");
 		return "admin/affichageProduit";
 	}
@@ -236,13 +239,14 @@ public class AdminController {
 	
 	// ====> liste emp
 	@RequestMapping("/getEmp")
-	public String getEmp(Model m) {
+	public String getEmp(Model m, HttpSession s) {
 		
 		// creation de la collection pour l'affichage des Emp
 		List<Employee> listEmp = (List<Employee>) empImp.getEmpList();
 		
 		// creation d'attribut pour l'affichage
 		m.addAttribute("emp", listEmp);
+		m.addAttribute("role", s.getAttribute("role"));
 		System.out.println("Il y a " + listEmp.size() + " enregistrements d'employees dans la base de données");
 		return "admin/affichageEmployee";
 	}
