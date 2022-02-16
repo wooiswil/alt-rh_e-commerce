@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ import Gestion.dao.PanierImp;
 import Gestion.dao.ProduitImp;
 import Gestion.dao.UserImp;
 import Gestion.model.Employee;
+import Gestion.model.Panier;
 import Gestion.model.Produit;
 import Gestion.model.User;
 
@@ -48,7 +48,9 @@ public class AdminController {
 		// variable static pour donner le dossier de l'url pour le stockage
 		private static String prdUpload = "src/main/resources/static/prdUploads/";
 		
+		////////////////
 		// login section
+		////////////////
 		
 	// return page login administrateur
 	@RequestMapping("/admin")
@@ -85,6 +87,7 @@ public class AdminController {
 					
 					// creation des attributs puis en enregistrement avec la session
 					session.setAttribute("role", empImp.authEmailEmp(email).getRole());
+					session.setAttribute("nom", empImp.authEmailEmp(email).getNom());
 					System.out.println("test role " + empImp.authEmailEmp(email).getRole() );
 					return "redirect:/homeAdmin";
 				}
@@ -121,6 +124,7 @@ public class AdminController {
 			
 			// permet d'avoir le nom de l'user connecté affiché dans le dashboard
 			m.addAttribute("email", s.getAttribute("email"));
+			m.addAttribute("nom", s.getAttribute("nom"));
 			m.addAttribute("role", s.getAttribute("role"));
 			return "admin/dashboard";
 		} else {
@@ -140,9 +144,25 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	////////////////
 	// user section
+	////////////////
 	
-	// ===> Modif
+	// ====> Liste user
+		@RequestMapping("/getUser")
+		public String toGetUser(Model m, HttpSession s) {
+			
+			// pour l'affichage des utilisateurs
+			List<User> listUser = (List<User>) userImp.getUser();
+			
+			// creation d'attributs pour l'affichage
+			m.addAttribute("user", listUser);
+			m.addAttribute("role", s.getAttribute("role"));
+			System.out.println("Il y a " + listUser.size() + " users dans la base de données");
+			return "admin/affichageUser";
+		}
+		
+	// ===> mod user
 	@RequestMapping("/modUser")
 	public String toModUser(
 			@RequestParam(name = "nom", required = false) String nom,
@@ -179,22 +199,7 @@ public class AdminController {
 		return "redirect:/getUser";
 	}
 	
-	// ====> Liste
-	@RequestMapping("/getUser")
-	public String toGetUser(Model m, HttpSession s) {
-		
-		// pour l'affichage des utilisateurs
-		List<User> listUser = (List<User>) userImp.getUser();
-		
-		// creation d'attributs pour l'affichage
-		m.addAttribute("user", listUser);
-		m.addAttribute("role", s.getAttribute("role"));
-		System.out.println("Il y a " + listUser.size() + " users dans la base de données");
-		return "admin/affichageUser";
-	}
-	
-	
-	// ====> Supp
+	// ====> del user
 	// passage de paramètre "/{id} pour la suppression
 	@RequestMapping("/deleteUser/{id}")
 	// pour acceder au parametre spécifié dans l'url et son type 
@@ -206,26 +211,87 @@ public class AdminController {
 		return "redirect:/getUser";
 	}
 	
-	
+	//////////////////
 	// produit section
+	//////////////////
 	
-	// ====> Modif
+	// ====> Liste prd
+		@RequestMapping("/getPrd")
+		public String getPrd(Model m, HttpSession s) {
+			
+			// pour l'affichage des produits
+			List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
+			
+			// creation d'attributs pour l'affichage
+			m.addAttribute("produit", listPrd);
+			m.addAttribute("role", s.getAttribute("role"));
+			System.out.println("Il y a  "+listPrd.size() + " produits dans la base de données");
+			return "admin/affichageProduit";
+		}
 	
-	// ====> Liste
-	@RequestMapping("/getPrd")
-	public String getPrd(Model m, HttpSession s) {
+	// ====> mod Prd
+		@RequestMapping("/modPrd")
+		public String toModPrd(
+				
+				// recuperation des champs de formulaire 
+				@RequestParam(name="ref", required = false)String ref,
+				@RequestParam(name="designation", required = false) String designation,
+				@RequestParam(name="prix", required = false) String prix, 
+				@RequestParam(name="poids", required = false) String poids, 
+				@RequestParam(name="qteProduit", required = false) String qteProduit,
+				@RequestParam(name="photo", required = false) MultipartFile photo,
+				@RequestParam(name= "id", required = false) String id,
+				RedirectAttributes rA)  throws IOException  {
+			
+			// Etape 1 ==> recherche de l'enregistrement par l'id
+			Produit p = prdImp.searchPrd(Integer.parseInt(id));
+			
+			// pour verifier si il y a une piee jointe chargée, on utilise isEmpty()
+			if(photo.isEmpty()) {
+				
+				// afficher un msg selon les conditions dans une page web en Spring boot ==> ObjectRedirectAttribute.addFlashAttribute("nomAttr", "valeur de msg")
+				rA.addFlashAttribute("msg", "Vous avez oublié d'ajouter une photo");
+				System.out.println("test");
+				return "redirect:/getPrd";
+			} else {
+				
+				// affichage du nom de pièce jointe (avec getOriginalFileName()
+				System.out.println("Photo ajouté : " + photo.getOriginalFilename());
+				
+				// stocker la photo dans static/uploads avec l'objet getByte()
+				byte[] bytesPrd = photo.getBytes();
+							
+				// creation d'objet path pour stocker
+				Path phPrd = Paths.get(prdUpload+photo.getOriginalFilename());
+							
+				// pour upload dans ph
+				Files.write(phPrd, bytesPrd);
+							
+				// affichage du message pour le nom de l'upload
+				rA.addFlashAttribute("Mess", "La nouvelle photo uploadé est : "+ photo.getOriginalFilename());
+				
+				// etape 2 ==> setter les valeurs pour la modification
+				// setter les valeurs des champs du form dans les attributs de l'entité (Employee)
+				
+				p.setRef(ref);
+				p.setDesignation(designation);
+				p.setPrix(Double.parseDouble(prix));
+				p.setPoids(Double.parseDouble(poids));
+				p.setQteProduit(Integer.parseInt(qteProduit));
+				p.setPhoto(photo.getOriginalFilename());
+				
+				// appelle func de modification
+				prdImp.modPrd(p);
+				
+				// verification 
+				System.out.println(p.getId());
+				
+				
+				return "redirect:/getPrd";
+			}
+		}
 		
-		// pour l'affichage des produits
-		List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
-		
-		// creation d'attributs pour l'affichage
-		m.addAttribute("produit", listPrd);
-		m.addAttribute("role", s.getAttribute("role"));
-		System.out.println("Il y a  "+listPrd.size() + " produits dans la base de données");
-		return "admin/affichageProduit";
-	}
-	
-	// ====> Supp
+	// ====> del prd
 	@RequestMapping("/deletePrd/{id}")
 	public String rmPrd(@PathVariable("id") int idPrd) {
 		
@@ -235,7 +301,9 @@ public class AdminController {
 		return "redirect:/getPrd";
 	}
 	
+	///////////////////////
 	// employee section
+	///////////////////////
 	
 	// ====> liste emp
 	@RequestMapping("/getEmp")
@@ -250,79 +318,7 @@ public class AdminController {
 		System.out.println("Il y a " + listEmp.size() + " enregistrements d'employees dans la base de données");
 		return "admin/affichageEmployee";
 	}
-	
-	// ====> del emp
-	@RequestMapping("/deleteEmp/{id}")
-	public String rmEmp(@PathVariable("id") int idEmp) {
-		
-		// appelle func delete
-		empImp.rmEmp(idEmp);
-		return "redirect:/getEmp";
-	}
-	
-	// ====> mod Prd
-	@RequestMapping("/modPrd")
-	public String toModPrd(
-			
-			// recuperation des champs de formulaire 
-			@RequestParam(name="ref", required = false)String ref,
-			@RequestParam(name="designation", required = false) String designation,
-			@RequestParam(name="prix", required = false) String prix, 
-			@RequestParam(name="poids", required = false) String poids, 
-			@RequestParam(name="qteProduit", required = false) String qteProduit,
-			@RequestParam(name="photo", required = false) MultipartFile photo,
-			@RequestParam(name= "id", required = false) String id,
-			RedirectAttributes rA)  throws IOException  {
-		
-		// Etape 1 ==> recherche de l'enregistrement par l'id
-		Produit p = prdImp.searchPrd(Integer.parseInt(id));
-		
-		// pour verifier si il y a une piee jointe chargée, on utilise isEmpty()
-		if(photo.isEmpty()) {
-			
-			// afficher un msg selon les conditions dans une page web en Spring boot ==> ObjectRedirectAttribute.addFlashAttribute("nomAttr", "valeur de msg")
-			rA.addFlashAttribute("msg", "Vous avez oublié d'ajouter une photo");
-			System.out.println("test");
-			return "redirect:/getPrd";
-		} else {
-			
-			// affichage du nom de pièce jointe (avec getOriginalFileName()
-			System.out.println("Photo ajouté : " + photo.getOriginalFilename());
-			
-			// stocker la photo dans static/uploads avec l'objet getByte()
-			byte[] bytesPrd = photo.getBytes();
-						
-			// creation d'objet path pour stocker
-			Path phPrd = Paths.get(prdUpload+photo.getOriginalFilename());
-						
-			// pour upload dans ph
-			Files.write(phPrd, bytesPrd);
-						
-			// affichage du message pour le nom de l'upload
-			rA.addFlashAttribute("Mess", "La nouvelle photo uploadé est : "+ photo.getOriginalFilename());
-			
-			// etape 2 ==> setter les valeurs pour la modification
-			// setter les valeurs des champs du form dans les attributs de l'entité (Employee)
-			
-			p.setRef(ref);
-			p.setDesignation(designation);
-			p.setPrix(Double.parseDouble(prix));
-			p.setPoids(Double.parseDouble(poids));
-			p.setQteProduit(Integer.parseInt(qteProduit));
-			p.setPhoto(photo.getOriginalFilename());
-			
-			// appelle func de modification
-			prdImp.modPrd(p);
-			
-			// verification 
-			System.out.println(p.getId());
-			
-			
-			return "redirect:/getPrd";
-		}
-	}
-	
-	
+
 	// ====> mod emp
 	@RequestMapping("/modEmp")
 	public String toModEmp(
@@ -380,4 +376,33 @@ public class AdminController {
 		return "redirect:/getEmp";
 	}
 	}
+	
+	// ====> del emp
+		@RequestMapping("/deleteEmp/{id}")
+		public String rmEmp(@PathVariable("id") int idEmp) {
+			
+			// appelle func delete
+			empImp.rmEmp(idEmp);
+			return "redirect:/getEmp";
+		}
+	
+	////////////////
+	// panier section
+	////////////////
+	
+	// ====> liste cart
+	@RequestMapping("/getCart")
+	public String toGetCart(Model m, HttpSession s) {
+		
+		// pour l'affichage de la liste des paniers
+		List<Panier> listCart = (List<Panier>) cartImp.getCartList();
+		
+		// creation d'attributs pour l'affichage
+		m.addAttribute("carts", listCart);
+		m.addAttribute("role", s.getAttribute("role"));
+		return "admin/affichagePanier";
+	}
+	
+	// ====> mod cart
+	// ====> del cart
 }

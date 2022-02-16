@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Gestion.dao.PanierImp;
 import Gestion.dao.ProduitImp;
 import Gestion.model.Produit;
 
@@ -18,17 +19,28 @@ public class DefaultController {
 	
 	@Autowired
 	ProduitImp prdImp;
+	
+	@Autowired
+	PanierImp cartImp;
 
 	@RequestMapping("/")
 	public String toIndex(HttpSession session, Model mo) {
 		
 		// verification des identifiants de l'usr spécifié dans le UserController
 		if(session.getAttribute("usr") != null ) {
+			if (session.getAttribute("usrId") != null) {
+				
+				// récuperation de l'id
+				String userCoId = session.getAttribute("usrId").toString();
+				mo.addAttribute("userCoId", userCoId);
+				
+				// recupération et enregistrement des identifiants de connexion attribués à userCo pour la session
+				String userCo = session.getAttribute("usr").toString();
+				System.out.println(userCo);
+				mo.addAttribute("userCo", userCo);
+				
+			}
 			
-			// recupération et enregistrement des identifiants de connexion attribués à userCo pour la session
-			String userCo = session.getAttribute("usr").toString();
-			System.out.println(userCo);
-			mo.addAttribute("userCo", userCo);
 		}
 		
 		if(session.getAttribute("msgE") != null) {

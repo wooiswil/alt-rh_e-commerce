@@ -1,0 +1,112 @@
+ <!-- Modal inscription start -->
+<div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        	<span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="getFormUser">
+          <div class="mb-3">
+            <label for="nom" class="col-form-label">Nom :</label>
+            <input type="text" class="form-control" id="nom" name="nom">
+          </div>
+          <div class="mb-3">
+            <label for="prenom" class="col-form-label">Prenom :</label>
+            <input type="text" class="form-control" id="prenom" name="prenom">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email :</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="mdp" class="col-form-label">Password :</label>
+            <input type="password" class="form-control" id="mdp" name="mdp">
+          </div>
+          <div class="mb-3">
+            <label for="adresse" class="col-form-label">Adresse :</label>
+            <input type="text" class="form-control" id="adresse" name="adresse">
+          </div>
+          <div class="mb-3">
+            <label for="tel" class="col-form-label">Telephone :</label>
+            <input type="text" class="form-control" id="tel" name="tel">
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" name="btnForm" value="btnIns"  class="btn btn-primary">S'inscrire</button>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+	<!-- Modal inscription end -->
+	
+	 <!-- Modal connexion start -->
+<div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Connexion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        	<span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="getFormUser">
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email :</label>
+            <input type="text" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label for="mdp" class="col-form-label">Password :</label>
+            <input type="text" class="form-control" id="mdp" name="mdp">
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" name="btnForm" value="btnCo" class="btn btn-primary">Se connecter</button>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+	<!-- Modal connexion end -->
+ <!-- Modal add  cart start -->
+                                        <div class="modal fade" th:id="'modalAddToCart'+${prd.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Ajout au panier
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method="post" id="signForm">
+                                                            <!-- Correspond � l'user connect� pour le persister dans toutes les pages -->
+                                                            <input type="hidden" name="idClient" th:value="${userCoId}">
+                                                            <input type="hidden" name="idProduit" th:value="${cart.idProduit}">
+                                                            <div class="alert alert-danger" role="alert" th:if="${icClient == null}" th:utext="${msg}">
+                                   							 </div>
+                                                            <div class="form-group" th:if="{idClient != null}">
+                                                                    <label for="qte" class="col-form-label">Quantite
+																			choisi :</label>
+                                                                    <input type="number" class="form-control" id="mdp" name="qteProduit">
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                                <button type="submit" name="btn" value="ajoutPanier" class="btn btn-primary">Add to cart</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal connexion end  -->
+	

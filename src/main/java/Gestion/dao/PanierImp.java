@@ -42,5 +42,11 @@ public class PanierImp {
 		cartInterface.deleteById(idCart);
 	}
 	
+	public Panier searchById(int idClient) {
+		
+		Panier res = cartInterface.findById(idClient).get();
+		
+		return res;
+	}
 	
 }

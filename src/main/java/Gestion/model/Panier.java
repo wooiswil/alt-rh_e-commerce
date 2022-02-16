@@ -12,15 +12,9 @@ public class Panier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	String idClient, idProduit,photoProduit, qteProduit;
+	int idClient, idProduit, qteProduit, commande;
+	String photoProduit;
 	
-	
-	public String getPhotoProduit() {
-		return photoProduit;
-	}
-	public void setPhotoProduit(String photoProduit) {
-		this.photoProduit = photoProduit;
-	}
 	// Accesseurs
 	public int getId() {
 		return id;
@@ -28,24 +22,39 @@ public class Panier {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getIdClient() {
+	public int getIdClient() {
 		return idClient;
 	}
-	public void setIdClient(String idClient) {
+	public void setIdClient(int idClient) {
 		this.idClient = idClient;
 	}
-	public String getIdProduit() {
+	public int getIdProduit() {
 		return idProduit;
 	}
-	public void setIdProduit(String idProduit) {
+	public void setIdProduit(int idProduit) {
 		this.idProduit = idProduit;
 	}
-	public String getQteProduit() {
+	public int getQteProduit() {
 		return qteProduit;
 	}
-	public void setQteProduit(String qteProduit) {
+	public void setQteProduit(int qteProduit) {
 		this.qteProduit = qteProduit;
 	}
+	public int getCommande() {
+		return commande;
+	}
+	public void setCommande(int commande) {
+		this.commande = commande;
+	}
+	public String getPhotoProduit() {
+		return photoProduit;
+	}
+	public void setPhotoProduit(String photoProduit) {
+		this.photoProduit = photoProduit;
+	}
+	
+	
+	
 	
 	
 }
