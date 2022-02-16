@@ -27,7 +27,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
     
-     <!-- Modal Add User start -->
+     <!-- Modal Add Emp start -->
 							<div class="modal fade" id="modalAddEmp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 								aria-hidden="true">
 								<div class="modal-dialog" role="document">
@@ -61,131 +61,12 @@
 									</div>
 								</div>
 							</div>
-							<!-- Modal add User end -->
+							<!-- Modal add Emp end -->
     
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Employees Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Gestion des employees</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#collapseTwo">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Actions :</h6>
-                        <a class="collapse-item" href="/getEmp" data-toggle="modal"
-									data-target="#modalAddEmp">Ajouter employees</a>
-                    </div>
-                </div>
-            </li>
-            
-                
-            <!-- Nav Item - Panier Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/getCart" >
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Gestion des paniers</span>
-                </a>
-                
-            <!-- Nav Item - Produits Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/getPrd" >
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Gestion des produits</span>
-                </a>
-
-            <!-- Nav Item - User Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/getUser" >
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Gestion des utilisateurs</span>
-                </a>
-                
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-           <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                    aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Sections</span>
-                </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Pages :</h6>
-                        <a class="collapse-item" href="/admin">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
+      <th:block th:include="admin/sidebar"></th:block>
+      
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -544,7 +425,7 @@
 						      <td th:utext="${emp.email}"></td>
 						      <td th:utext="${emp.role}"></td>
 						      <!-- affichage d'un media en thymeleaf -->
-						      <td ><img th:src="@{${'/uploads/'+emp.photo}}" style="border-radius: 50%" width=50 height=50 > </td>
+						      <td ><img th:src="@{${'/uploads/'+emp.photo}}" style="border-radius: 20%" width=80 height=80 > </td>
 						      <td > <a href="#" class="btn btn-outline-danger" onclick="if(!confirm('Voulez-vous modifier ?')) return false" data-toggle="modal" th:attr="data-target='#modalEditEmp'+${emp.id}">Modifier</a></td>
 						      <td > <a th:href="@{'/deleteEmp/'+${emp.id}}" class="btn btn-outline-warning"  onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a></td>
 						    </tr>

@@ -26,172 +26,54 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-    
-   	<!-- Modal add prd start -->
-							<div class="modal fade" id="modalAddPrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Ajout produit</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form action="" method="post" id="signForm">
-												<div class="form-group">
-													<label for="ref" class="col-form-label">Reference :</label>
-													<input type="text" class="form-control" id="ref" name="ref">
-												</div>
-												<div class="form-group">
-													<label for="designation" class="col-form-label">Designation :</label>
-													<input type="text" class="form-control" id="designation" name="designation">
-												</div>
-												<div class="form-group">
-													<label for="prix" class="col-form-label">Prix (en euros) :</label>
-													<input type="text" class="form-control" id="prix" name="prix">
-												</div>
-												<div class="form-group">
-													<label for="poids" class="col-form-label">Poids (en gr):</label>
-													<input type="text" class="form-control" id="poids" name="poids">
-												</div>
-												<div class="form-group">
-													<label for="qte" class="col-form-label">Quantite stock:</label>
-													<input type="text" class="form-control" id="qte" name="qte">
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-													<button type="submit" name="prdBtn" value="btnAddPrd"
-														class="btn btn-primary">Ajouter</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Modal add prd end -->
-    
+
+        <!-- Modal add prd start -->
+        <div class="modal fade" id="modalAddPrd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajout produit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post" id="signForm">
+                            <div class="form-group">
+                                <label for="ref" class="col-form-label">Reference :</label>
+                                <input type="text" class="form-control" id="ref" name="ref">
+                            </div>
+                            <div class="form-group">
+                                <label for="designation" class="col-form-label">Designation :</label>
+                                <input type="text" class="form-control" id="designation" name="designation">
+                            </div>
+                            <div class="form-group">
+                                <label for="prix" class="col-form-label">Prix (en euros) :</label>
+                                <input type="text" class="form-control" id="prix" name="prix">
+                            </div>
+                            <div class="form-group">
+                                <label for="poids" class="col-form-label">Poids (en gr):</label>
+                                <input type="text" class="form-control" id="poids" name="poids">
+                            </div>
+                            <div class="form-group">
+                                <label for="qte" class="col-form-label">Quantite stock:</label>
+                                <input type="text" class="form-control" id="qte" name="qte">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                <button type="submit" name="prdBtn" value="btnAddPrd"
+                                    class="btn btn-primary">Ajouter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal add prd end -->
+
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            
-            <!-- Nav Item - Panier Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/getEmp">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Liste des employees</span>
-                </a>
-                
-            <!-- Nav Item - Panier Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/getCart">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Liste des paniers</span>
-                </a>
-                
-            <!-- Nav Item - Produit Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/getPrd">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Liste des produits</span>
-                </a>
-                
-            <!-- Nav Item - Users Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Gestion des utilisateurs</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Actions :</h6>
-                        <a class="collapse-item" href="#" data-toggle="modal"
-									data-target="#modalAddUser">Ajouter utilisateur</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                    aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Sections</span>
-                </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Pages :</h6>
-                        <a class="collapse-item" href="/admin">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        <th:block th:include="admin/sidebar"></th:block>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -316,8 +198,7 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -328,8 +209,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -340,8 +220,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -373,13 +252,12 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:utext="${email}"></span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" >
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -406,140 +284,156 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                
-                 <!-- Modal Add User start -->
-							<div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Ajout nouveau client</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<form action="getFormUser" method="post" id="signForm">
-												<div class="form-group">
-													<label for="nom" class="col-form-label">Nom  :</label>
-													<input type="text" class="form-control" id="nom" name="nom">
-												</div>
-												<div class="form-group">
-													<label for="prenom" class="col-form-label">Prenom :</label>
-													<input type="text" class="form-control" id="prenom" name="prenom">
-												</div>
-												<div class="form-group">
-													<label for="email" class="col-form-label">Email :</label>
-													<input type="text" class="form-control" id="email" name="email">
-												</div>
-												<div class="form-group">
-													<label for="mdp" class="col-form-label">Mot de passe :</label>
-													<input type="text" class="form-control" id="mdp" name="mdp">
-												</div>
-												<div class="form-group">
-													<label for="adresse" class="col-form-label">Adresse :</label>
-													<input type="text" class="form-control" id="adresse" name="adresse">
-												</div>
-												<div class="form-group">
-													<label for="tel" class="col-form-label">Telephone :</label>
-													<input type="text" class="form-control" id="tel" name="tel">
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-													<button type="submit" name="userBtn" value="btnAddUser"
-														class="btn btn-primary">Ajouter</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Modal add User end -->
+
+                    <!-- Modal Add User start -->
+                    <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Ajout nouveau client</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="getFormUser" method="post" id="signForm">
+                                        <div class="form-group">
+                                            <label for="nom" class="col-form-label">Nom :</label>
+                                            <input type="text" class="form-control" id="nom" name="nom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prenom" class="col-form-label">Prenom :</label>
+                                            <input type="text" class="form-control" id="prenom" name="prenom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="col-form-label">Email :</label>
+                                            <input type="text" class="form-control" id="email" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mdp" class="col-form-label">Mot de passe :</label>
+                                            <input type="text" class="form-control" id="mdp" name="mdp">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="adresse" class="col-form-label">Adresse :</label>
+                                            <input type="text" class="form-control" id="adresse" name="adresse">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tel" class="col-form-label">Telephone :</label>
+                                            <input type="text" class="form-control" id="tel" name="tel">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Annuler</button>
+                                            <button type="submit" name="userBtn" value="btnAddUser"
+                                                class="btn btn-primary">Ajouter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal add User end -->
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-                    	<table class="table table-dark">
-						  <thead>
-						    <tr>
-						      <th scope="col">Id</th>
-						      <th scope="col">Nom</th>
-						      <th scope="col">Prenom</th>
-						      <th scope="col">Email</th>
-						      <th scope="col">Adresse</th>
-						      <th scope="col">Telephone</th>
-						      <th scope="col">Modifier</th>
-						      <th scope="col">Supprimer</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr th:each="user:${user}">
-						    
-						     <!-- Modal inscription start -->
-						     <!--  th:id ==> pour rendre le modal de modif dynamique avec l'id -->
-                                        <div class="modal fade" th:id="'modalEditUser'+${user.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Modification user
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Adresse</th>
+                                <th scope="col">Telephone</th>
+                                <th scope="col">Modifier</th>
+                                <th scope="col">Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user:${user}">
+
+                                <!-- Modal inscription start -->
+                                <!--  th:id ==> pour rendre le modal de modif dynamique avec l'id -->
+                                <div class="modal fade" th:id="'modalEditUser'+${user.id}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modification user
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="modUser" method="post" id="signForm">
+                                                    <!--  nom de champ caché pour les modifs (findById) -->
+                                                    <input type="hidden" name="id" th:value="${user.id}">
+                                                    <div class="form-group">
+                                                        <label for="nom" class="col-form-label">Nom:</label>
+                                                        <input type="text" class="form-control" id="nom" name="nom"
+                                                            th:value="${user.nom}">
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <form action="modUser" method="post" id="signForm">
-                                                        <!--  nom de champ caché pour les modifs (findById) -->
-                                                        <input type="hidden" name="id" th:value="${user.id}" >
-                                                            <div class="form-group">
-                                                                <label for="nom" class="col-form-label">Nom:</label>
-                                                                <input type="text" class="form-control" id="nom" name="nom" th:value="${user.nom}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="prenom" class="col-form-label">Prenom:</label>
-                                                                <input type="text" class="form-control" id="prenom" name="prenom" th:value="${user.prenom}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="email" class="col-form-label">Email:</label>
-                                                                <input type="email" class="form-control" id="email" name="email" th:value="${user.email}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="mdp" class="col-form-label">Mot de
-                                                                        Passe:</label>
-                                                                <input type="password" class="form-control" id="mdp" name="mdp" th:value="${user.mdp}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="addy" class="col-form-label">Adresse:</label>
-                                                                <input type="text" class="form-control" id="addy" name="adresse" th:value="${user.adresse}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="tel" class="col-form-label">Telephone:</label>
-                                                                <input type="text" class="form-control" id="tel" name="tel" th:value="${user.tel}">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                                                <button type="submit" name="btnFormUser" value="btnModUser" class="btn btn-primary">Envoyer</button>
-                                                            </div>
-                                                        </form>
+                                                    <div class="form-group">
+                                                        <label for="prenom" class="col-form-label">Prenom:</label>
+                                                        <input type="text" class="form-control" id="prenom"
+                                                            name="prenom" th:value="${user.prenom}">
                                                     </div>
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label for="email" class="col-form-label">Email:</label>
+                                                        <input type="email" class="form-control" id="email" name="email"
+                                                            th:value="${user.email}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="mdp" class="col-form-label">Mot de
+                                                            Passe:</label>
+                                                        <input type="password" class="form-control" id="mdp" name="mdp"
+                                                            th:value="${user.mdp}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="addy" class="col-form-label">Adresse:</label>
+                                                        <input type="text" class="form-control" id="addy" name="adresse"
+                                                            th:value="${user.adresse}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="tel" class="col-form-label">Telephone:</label>
+                                                        <input type="text" class="form-control" id="tel" name="tel"
+                                                            th:value="${user.tel}">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Fermer</button>
+                                                        <button type="submit" name="btnFormUser" value="btnModUser"
+                                                            class="btn btn-primary">Envoyer</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <!-- Modal end -->
-						      <th scope="row" th:utext="${user.id}"></th>
-						      <td th:utext="${user.nom}"></td>
-						      <td th:utext="${user.prenom}"></td>
-						      <td th:utext="${user.email}"></td>
-						      <td th:utext="${user.adresse}"></td>
-						      <td th:utext="${user.tel}"></td>
-						      <td > <a href="#" class="btn btn-outline-danger" onclick="if(!confirm('Voulez-vous modifier ?')) return false" data-toggle="modal" th:attr="data-target='#modalEditUser'+${user.id}">Modifier</a></td>
-						     							<!-- instruction pour la suppression by Id  -->
-						      <td > <a th:href="@{'/deleteUser/'+${user.id}}" class="btn btn-outline-warning" onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a></td>
-						    </tr>
-						  </tbody>
-						</table>
+                                    </div>
+                                </div>
+                                <!-- Modal end -->
+                                <th scope="row" th:utext="${user.id}"></th>
+                                <td th:utext="${user.nom}"></td>
+                                <td th:utext="${user.prenom}"></td>
+                                <td th:utext="${user.email}"></td>
+                                <td th:utext="${user.adresse}"></td>
+                                <td th:utext="${user.tel}"></td>
+                                <td> <a href="#" class="btn btn-outline-danger"
+                                        onclick="if(!confirm('Voulez-vous modifier ?')) return false"
+                                        data-toggle="modal"
+                                        th:attr="data-target='#modalEditUser'+${user.id}">Modifier</a></td>
+                                <!-- instruction pour la suppression by Id  -->
+                                <td> <a th:href="@{'/deleteUser/'+${user.id}}" class="btn btn-outline-warning"
+                                        onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                
-               
+
+
                 <!-- /.container-fluid -->
 
             </div>

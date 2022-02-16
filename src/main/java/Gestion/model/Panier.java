@@ -12,9 +12,15 @@ public class Panier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	String idClient, idProduit, qteProduit;
+	String idClient, idProduit,photoProduit, qteProduit;
 	
 	
+	public String getPhotoProduit() {
+		return photoProduit;
+	}
+	public void setPhotoProduit(String photoProduit) {
+		this.photoProduit = photoProduit;
+	}
 	// Accesseurs
 	public int getId() {
 		return id;
