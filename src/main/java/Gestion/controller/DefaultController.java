@@ -29,14 +29,13 @@ public class DefaultController {
 		// verification des identifiants de l'usr spécifié dans le UserController
 		if(session.getAttribute("usr") != null ) {
 			if (session.getAttribute("usrId") != null) {
-				
+//				System.out.println(session.getAttribute("usr"));
 				// récuperation de l'id
 				String userCoId = session.getAttribute("usrId").toString();
 				mo.addAttribute("userCoId", userCoId);
 				
 				// recupération et enregistrement des identifiants de connexion attribués à userCo pour la session
 				String userCo = session.getAttribute("usr").toString();
-				System.out.println(userCo);
 				mo.addAttribute("userCo", userCo);
 				
 			}
@@ -46,7 +45,9 @@ public class DefaultController {
 		if(session.getAttribute("msgE") != null) {
 
 			mo.addAttribute("msgE", session.getAttribute("msgE"));
-		} 
+		} else {
+			mo.addAttribute("msgE", null);
+		}
 		// pour l'affichage des produits
 				List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
 				System.out.println(listPrd.size());
@@ -70,18 +71,4 @@ public class DefaultController {
 		return "formulaire"; // return 
 	}
 
-//	@RequestMapping("/getForm")
-//	public String affForm(@RequestParam("nom") String nom, @RequestParam("prenom") String prenom,
-//			@RequestParam("email") String email, @RequestParam("mdp") String mdp, @RequestParam("tel") String tel,
-//			@RequestParam("age") int age, Model mod) { // pour recuperer les para
-//		System.out.println("Votre nom est : " + nom + "\n " + "Votre prenom est : " + prenom + "\n "
-//				+ "Votre email est : " + email + " \n " + "et votre age est : " + age);
-//		// Model mod ==> permet de setter des attributs pour l'envoie vers la page =>
-//		// getPersonne;html avec
-//		mod.addAttribute("nom", nom);
-//		mod.addAttribute("prenom", prenom);
-//		mod.addAttribute("email", email);
-//		mod.addAttribute("age", age);
-//		return "getPersonne";
-//	}
 }

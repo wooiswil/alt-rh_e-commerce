@@ -72,11 +72,12 @@ public class UserController {
 				// recherche par email ==> du form
 				User resSearch = userImp.authUser(email);
 				
+				
 				// verif si email dans la bdd
 				if (resSearch == null) {
 					
 					// instruction si email non dans la bdd
-					System.out.println("Email incorrect");
+//					System.out.println("Email incorrect");
 					// affichage d'un message d'erreur en cas d'identifiants invalides
 					session.setAttribute("msgE", "Email " + email + " incorrect");
 					return "redirect:/"; 
@@ -89,9 +90,9 @@ public class UserController {
 						
 						// recuperation des informations pour les stockés dans la session avec l'objet crée ligne 74
 						session.setAttribute("usr", resSearch.getNom() + " " +resSearch.getPrenom());
-						session.setAttribute("usrID", resSearch.getId());
+						session.setAttribute("usrId", resSearch.getId());
 						
-						System.out.println(email);
+//						System.out.println(email);
 						session.setAttribute("msgE", null);
 						return "redirect:/"; 
 					} else {

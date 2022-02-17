@@ -756,6 +756,42 @@
            
               <div class="col-md-3 col-sm-6" th:each="prd:${produit}">
               
+               <!-- Modal add  cart start -->
+                                        <div class="modal fade" th:id="'modalAddToCart'+${prd.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Ajout au panier
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{'/Panier/AddCart'}" method="post" id="signForm">
+                                                            <!-- Correspond � l'user connect� pour le persister dans toutes les pages -->
+                                                            <input type="hidden" name="idClient" th:value="${userCoId}">
+                                                            <input type="hidden" name="idProduit" th:value="${prd.id}">
+                                                            <div class="alert alert-danger" role="alert" th:if="${userCoId == null}" >
+                                                            Vous devez être connecté pour effectuer cette action
+                                   							 </div>
+                                                            <div class="form-group" th:if="${userCoId != null}">
+                                                                    <label for="qte" class="col-form-label">Quantite
+																			choisi :</label>
+                                                                    <input type="number" class="form-control" id="mdp" name="qteProduit">
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                                                <button type="submit" name="btn" value="ajoutPanier" class="btn btn-primary">Add to cart</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal connexion end  -->
+              
                 <!-- Shopping items -->
                 <div class="shopping-item">
                   <!-- Image -->

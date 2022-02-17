@@ -141,6 +141,7 @@ public class AdminController {
 		// cree un attibut "null" pour le champ email qui permet la deconnexion apres la récuperation de la valeur
 		s.setAttribute("email", null);
 		s.setAttribute("msgE", null);
+		s.setAttribute("role", null);
 		return "redirect:/admin";
 	}
 	
@@ -385,6 +386,7 @@ public class AdminController {
 			empImp.rmEmp(idEmp);
 			return "redirect:/getEmp";
 		}
+		
 	
 	////////////////
 	// panier section
@@ -404,5 +406,39 @@ public class AdminController {
 	}
 	
 	// ====> mod cart
+	@RequestMapping("/modCart")
+	public String toModCart(
+			// recuperation des champs de formulaire 
+			@RequestParam(name="idClient", required = false)String idClient,
+			@RequestParam(name="idProduit", required = false) String idProduit,
+			@RequestParam(name= "qteProduit", required = false) String qteProduit,
+			@RequestParam(name= "commande", required = false) String commande,
+			@RequestParam(name= "id", required = false) String id
+			) {
+		// Etape 1 ==> recherche de l'enregistrement par l'id
+		// Instance de la classe Panier
+		Panier cart = cartImp.searchById(Integer.parseInt(id));
+		
+		// verification avec condition 
+		if(cart != null) {
+			// etape 2 ==> setter les valeurs pour la modification
+			// setter les valeurs des champs du form dans les attributs de l'entité (Panier)
+			cart.setIdClient(Integer.parseInt(idClient));
+			cart.setIdProduit(Integer.parseInt(idProduit));
+			cart.setQteProduit(Integer.parseInt(qteProduit));
+			cart.setCommande(Integer.parseInt(commande));
+		}
+		
+		return "redirect:/getCart";
+	}
+	
+	
 	// ====> del cart
+	@RequestMapping("/deleteCart/{id}")
+	public String rmFromCart(@PathVariable("id") int idCart) {
+				
+		// appelle func delete
+		cartImp.rmCart(idCart);
+		return "redirect:/getCart";
+	}
 }

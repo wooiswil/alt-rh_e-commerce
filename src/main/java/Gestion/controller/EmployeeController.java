@@ -4,8 +4,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +30,16 @@ public class EmployeeController {
 	// fonction affichage page d'ajout
 	
 	@RequestMapping("/ajout")
-	public String toAddEmp() {
+	public String toAddEmp(HttpSession s, Model m) {
+		
+		// model pour si on va afficher la valeur d'un attr dans la même page retournée par la func c-a-d  ==>  "return "employee/ajout";"
+		// si l'affichage sera dans une autre page retournée par une "return "redirect:/Rm"; utiliser, le RedirectAddAttribute et si on va récupérer la valeur d'une variable
+		// initialisé dans une class, l'utilisation dans une autre class, on utilise un objet de type session (HttpSession s ==> s.getAttribute(""))
+		
+		if(s.getAttribute("role") != "Super-admin") {
+			m.addAttribute("msg", "Vous n'avez pas les droits pour effectuer cette action");
+		}
+		m.addAttribute("role", s.getAttribute("role"));
 		return "employee/ajout";
 	}
 	
