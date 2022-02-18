@@ -19,6 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="adminTemplate/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -49,21 +52,32 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-                    <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
+                <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
                     </div>
                     <div class="alert alert-success" role="alert" th:if="${Mess}" th:utext="${Mess}">
                     </div>
-                    <table class="table table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Id Client</th>
-                                <th scope="col">Id Produit</th>
-                                <th scope="col">Quantité commandée</th>
-                                <th scope="col">Image Produit</th>
-                            </tr>
-                        </thead>
+                    <h1 class="h3 mb-2 text-gray-800">Clients</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Base de données clients</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <!-- if role ==> 'Super-admin' -->
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Id Panier</th>
+                                            <th>IdClient</th>
+                                            <th>IdProduit</th>
+                                            <th>Quantité</th>
+                                            <th>Image</th>
+                                            <th>Modifier</th>
+                                            <th>Supprimer</th>
+                                        </tr>
+                                    </thead>
                         <tbody>
                             <tr th:each="cart:${carts}">
 
@@ -121,8 +135,8 @@
                                 <td th:utext="${cart.idProduit}"></td>
                                 <td th:utext="${cart.qteProduit}"></td>
                                 <!-- affichage d'un media en thymeleaf -->
-                                <td><img th:src="@{${'/prdUploads/'+prd.photo}}" style="border-radius: 20%" width=80
-                                        height=80> </td>
+                                <td><img th:src="@{${'/prdUploads/'+prdImg}}" style="border-radius: 30%" width=70
+                                        height=70> </td>
                                 <td> <a href="#" class="btn btn-outline-danger"
                                         onclick="if(!confirm('Voulez-vous modifier ?')) return false"
                                         data-toggle="modal" th:attr="data-target='#modalEditcart'+${cart.id}">Modifier</a>
@@ -190,6 +204,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="adminTemplate/js/sb-admin-2.min.js"></script>
+    
+    <!-- Page level plugins -->
+    <script src="/adminTemplate/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adminTemplate/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/adminTemplate/js/demo/datatables-demo.js"></script>
 
 </body>
 

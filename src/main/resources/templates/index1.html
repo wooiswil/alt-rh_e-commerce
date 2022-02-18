@@ -1,0 +1,114 @@
+ <table class="table table-dark" th:if="${role == 'Super-admin'}">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id Employee</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prenom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Photo</th>
+                                <th scope="col">Modifier</th>
+                                <th scope="col">Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="emp:${emp}">
+
+                                <!-- Modal modification employee start -->
+                                <div class="modal fade" th:id="'modalEditEmp'+${emp.id}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Modifier employee
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="modEmp" method="post" id="signForm"
+                                                    enctype="multipart/form-data">
+                                                    <input type="hidden" name="id" th:value="${emp.id}">
+                                                    <div class="form-group">
+                                                        <label for="nom" class="col-form-label">Nom :</label>
+                                                        <input type="text" class="form-control" id="nom" name="nom"
+                                                            th:value="${emp.nom}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="prenom" class="col-form-label">Prenom :</label>
+                                                        <input type="text" class="form-control" id="prenom"
+                                                            name="prenom" th:value="${emp.prenom}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email" class="col-form-label">Email :</label>
+                                                        <input type="text" class="form-control" id="email" name="email"
+                                                            th:value="${emp.email}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="mdp" class="col-form-label">Password :</label>
+                                                        <input type="password" class="form-control" id="password"
+                                                            name="password" th:value="${emp.password}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="role" class="col-form-label">Role :</label>
+                                                        <select class="form-control form-control-user" id="role"
+                                                            required name="role" th:if="${emp.role != null}">
+                                                            <option selected disabled value="">Choisir un role ...
+                                                            </option>
+                                                            <!-- Cas 1 = role selectionné ==> Pour obtenir option selectionnée par défaut avec selected= "select" -->
+                                                            <!-- "unless" ==> else-->
+                                                            <option value="admin" th:selected="${emp.role == 'admin'}">
+                                                                Administrateur</option>
+                                                            <option value="magasinier"
+                                                                th:selected="${emp.role == 'magasinier'}">Magasinier
+                                                            </option>
+                                                            <option value="rh" th:selected="${emp.role == 'rh'}">Rh
+                                                            </option>
+                                                        </select>
+                                                        <select class="form-control form-control-user" id="role"
+                                                            required name="role" th:if="${emp.role == null}">
+                                                            <option selected disabled value="">Choisir un role ...
+                                                            </option>
+                                                            <!-- Cas 2 = les 3 options sont aafichées -->
+                                                            <option value="admin">Administrateur</option>
+                                                            <option value="magasinier">Magasinier</option>
+                                                            <option value="rh">Rh</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="photo" class="col-form-label">Photo :</label>
+                                                        <input type="file" class="form-control" id="photo" name="photo">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal"
+                                                            onclick="javascript:window.close()">Annuler</button>
+                                                        <button type="submit" class="btn btn-primary">Modifier</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal modifcation employee end -->
+
+                                <th scope="row" th:utext="${emp.id}"></th>
+                                <td th:utext="${emp.nom}"></td>
+                                <td th:utext="${emp.prenom}"></td>
+                                <td th:utext="${emp.email}"></td>
+                                <td th:utext="${emp.role}"></td>
+                                <!-- affichage d'un media en thymeleaf -->
+                                <td><img th:src="@{${'/uploads/'+emp.photo}}" style="border-radius: 20%" width=80
+                                        height=80> </td>
+                                <td> <a href="#" class="btn btn-outline-danger"
+                                        onclick="if(!confirm('Voulez-vous modifier ?')) return false"
+                                        data-toggle="modal" th:attr="data-target='#modalEditEmp'+${emp.id}">Modifier</a>
+                                </td>
+                                <td> <a th:href="@{'/deleteEmp/'+${emp.id}}" class="btn btn-outline-warning"
+                                        onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>

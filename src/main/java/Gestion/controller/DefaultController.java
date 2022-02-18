@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import Gestion.dao.PanierImp;
 import Gestion.dao.ProduitImp;
+import Gestion.model.Panier;
 import Gestion.model.Produit;
 
 @Controller
@@ -34,6 +35,17 @@ public class DefaultController {
 				String userCoId = session.getAttribute("usrId").toString();
 				mo.addAttribute("userCoId", userCoId);
 				
+				// pour l'affichage de la liste des paniers
+				List<Panier> listCart = (List<Panier>) cartImp.retEnrUser(Integer.parseInt(userCoId));
+				mo.addAttribute("cartById", listCart);
+				
+//				if(listCart != null) {
+//					Produit prdId = prdImp.searchPrd(Integer.parseInt(userCoId)).getId();
+//				}
+				
+				// compte le nombre d'enregistrement pour l'aff
+				mo.addAttribute("nbPanier", listCart.size());
+				
 				// recupération et enregistrement des identifiants de connexion attribués à userCo pour la session
 				String userCo = session.getAttribute("usr").toString();
 				mo.addAttribute("userCo", userCo);
@@ -53,6 +65,7 @@ public class DefaultController {
 				System.out.println(listPrd.size());
 				// creation d'attributs pour l'affichage
 				mo.addAttribute("produit", listPrd);
+				
 		return "index"; 
 	}
 	
@@ -61,6 +74,8 @@ public class DefaultController {
 			
 		// affectation de la valeur null à la session de l'user qui permet la deconnexion
 			session.setAttribute("usr", null);
+			session.setAttribute("msgE", null);
+			
 			
 		return "redirect:/"; 
 	}

@@ -1,5 +1,7 @@
 package Gestion.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Gestion.dao.PanierImp;
+import Gestion.dao.ProduitImp;
 import Gestion.dao.UserImp;
+import Gestion.model.Panier;
 import Gestion.model.User;
 
 @Controller
@@ -19,6 +24,12 @@ public class UserController {
 	
 	// Appelle de la classe d'implémentation pour les methodes
 			UserImp userImp;
+	
+	@Autowired
+	ProduitImp prdImp;
+	
+	@Autowired // ==> pour les class d'implémentation
+	PanierImp cartImp;
 	
 	@RequestMapping("/getFormUser")
 	public String toGetForm(
@@ -105,5 +116,26 @@ public class UserController {
 			}
 		}
 		return "index";
+		}
+	
+	// ====> liste cart
+		@RequestMapping("/getCartById")
+		public String toGetCart(Model m, HttpSession s, String idPrd) {
+			
+			// pour l'affichage de la liste des paniers
+			List<Panier> listCart = (List<Panier>) cartImp.getCartList();
+			
+			
+			// recherche des enregistrements
+			
+			// condition d'affichage liste selon role
+			if(s.getAttribute("role") != "Super-admin") {
+				m.addAttribute("msg", "Vous n'avez pas les privilièges pour cette action");
+			} 
+				// creation d'attributs pour l'affichage
+				m.addAttribute("carts", listCart);
+				m.addAttribute("role", s.getAttribute("role"));
+				m.addAttribute("msg", null);
+				return "admin/affichagePanier";
 		}
 }

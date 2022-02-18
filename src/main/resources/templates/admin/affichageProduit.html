@@ -19,6 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/adminTemplate/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -49,27 +52,35 @@
                 <div class="container-fluid">
 
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-                    <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
+                   <!-- Page Heading -->
+                <div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}">
                     </div>
                     <div class="alert alert-success" role="alert" th:if="${Mess}" th:utext="${Mess}">
                     </div>
+                    <h1 class="h3 mb-2 text-gray-800">Produits</h1>
 
-                    <!-- if role ==> 'super-admin' -->
-                    <table class="table table-dark" th:if="${role == 'Super-admin'}">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id produit</th>
-                                <th scope="col">Reference</th>
-                                <th scope="col">Designation</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Poids</th>
-                                <th scope="col">Quantité produits</th>
-                                <th scope="col">Modifier</th>
-                                <th scope="col">Supprimer</th>
-                            </tr>
-                        </thead>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Base de données produits</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <!-- if role ==> 'Super-admin' -->
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${role == 'Super-admin'}">
+                                    <thead>
+                                        <tr>
+                                            <th>Id Produit</th>
+                                            <th>Reference</th>
+                                            <th>Designation</th>
+                                            <th>Prix (en €)</th>
+                                            <th>Poids (en gr)</th>
+                                            <th>Quantité</th>
+                                            <th>Image</th>
+                                            <th>Modifier</th>
+                                            <th>Supprimer</th>
+                                        </tr>
+                                    </thead>
                         <tbody>
                             <tr th:each="prd:${produit}">
 
@@ -142,29 +153,30 @@
                                 <td th:utext="${prd.qteProduit}"></td>
                                 <td><img th:src="@{${'/prdUploads/'+prd.photo}}" style="border-radius: 30%" width=70
                                         height=70> </td>
-                                <td> <a href="#" class="btn btn-outline-danger"
-                                        onclick="if(!confirm('Voulez-vous modifier ?')) return false"
-                                        data-toggle="modal" th:attr="data-target='#modalEditPrd'+${prd.id}">Modifier</a>
-                                </td>
-                                <td> <a th:href="@{'/deletePrd/'+${prd.id}}" class="btn btn-outline-warning"
-                                        onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a>
-                                </td>
+			                                <td> <a href="#" class="btn btn-outline-danger"
+			                                        onclick="if(!confirm('Voulez-vous modifier ?')) return false"
+			                                        data-toggle="modal" th:attr="data-target='#modalEditPrd'+${prd.id}">Modifier</a>
+			                                </td>
+			                                <td> <a th:href="@{'/deletePrd/'+${prd.id}}" class="btn btn-outline-warning"
+			                                        onclick="if(!confirm('Voulez-vous supprimer ?')) return false">Supprimer</a>
+			                                </td>
                             </tr>
                         </tbody>
                     </table>
 
                     <!-- if role ==> 'magasinier' -->
-                    <table class="table table-dark" th:if="${role == 'magasinier'}">
-                        <thead>
-                            <tr>
-                                <th scope="col">Id produit</th>
-                                <th scope="col">Reference</th>
-                                <th scope="col">Designation</th>
-                                <th scope="col">Prix</th>
-                                <th scope="col">Poids</th>
-                                <th scope="col">Quantité produits</th>
-                            </tr>
-                        </thead>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${role == 'magasinier'}">
+                                    <thead>
+                                        <tr>
+                                            <th>Id Produit</th>
+                                            <th>Reference</th>
+                                            <th>Designation</th>
+                                            <th>Prix (en €)</th>
+                                            <th>Poids (en gr)</th>
+                                            <th>Quantité</th>
+                                            <th>Image</th>
+                                        </tr>
+                                    </thead>
                         <tbody>
                             <tr th:each="prd:${produit}">
                                 <th scope="row" th:utext="${prd.id}"></th>
@@ -173,6 +185,8 @@
                                 <td th:utext="${prd.prix}"></td>
                                 <td th:utext="${prd.poids}"></td>
                                 <td th:utext="${prd.qteProduit}"></td>
+                                <td><img th:src="@{${'/prdUploads/'+prd.photo}}" style="border-radius: 30%" width=70
+                                        height=70> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -232,6 +246,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="/adminTemplate/js/sb-admin-2.min.js"></script>
+    
+    <!-- Page level plugins -->
+    <script src="/adminTemplate/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/adminTemplate/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/adminTemplate/js/demo/datatables-demo.js"></script>
 
 </body>
 

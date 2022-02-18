@@ -40,6 +40,7 @@ public class EmployeeController {
 			m.addAttribute("msg", "Vous n'avez pas les droits pour effectuer cette action");
 		}
 		m.addAttribute("role", s.getAttribute("role"));
+		m.addAttribute("msg", null);
 		return "employee/ajout";
 	}
 	
@@ -54,7 +55,7 @@ public class EmployeeController {
 						@RequestParam(name="nom", required = false)String nom,
 						@RequestParam(name="prenom", required = false) String prenom,
 						@RequestParam(name= "email", required = false) String email,
-						@RequestParam(name= "mdp", required = false) String mdp,
+						@RequestParam(name= "password", required = false) String password,
 						@RequestParam(name= "role", required = false) String role,
 						@RequestParam(name="photo", required = false) MultipartFile photo, 
 						RedirectAttributes rA
@@ -95,7 +96,7 @@ public class EmployeeController {
 				empl.setNom(nom);
 				empl.setPrenom(prenom);
 				empl.setEmail(email);
-				empl.setPassword(mdp);
+				empl.setPassword(password);
 				empl.setRole(role);
 				empl.setPhoto(photo.getOriginalFilename());
 				

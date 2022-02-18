@@ -49,4 +49,12 @@ public class PanierImp {
 		return res;
 	}
 	
+	public List<Panier> retEnrUser(int idClient){
+		
+		// retourne les enregistrements de la table Panier du client connecté "selon l'id ===> idClient"
+		List<Panier> cartUser = cartInterface.findByIdClient(idClient);
+		
+		return cartUser;
+	}
+	
 }

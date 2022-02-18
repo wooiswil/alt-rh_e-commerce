@@ -156,11 +156,16 @@ public class AdminController {
 			// pour l'affichage des utilisateurs
 			List<User> listUser = (List<User>) userImp.getUser();
 			
-			// creation d'attributs pour l'affichage
-			m.addAttribute("user", listUser);
-			m.addAttribute("role", s.getAttribute("role"));
-			System.out.println("Il y a " + listUser.size() + " users dans la base de données");
-			return "admin/affichageUser";
+			// condition d'affichage liste selon role
+			if(s.getAttribute("role") == "magasinier") {
+				m.addAttribute("msg", "Vous n'avez pas les privilièges pour cette action");
+			}
+				// creation d'attributs pour l'affichage
+				m.addAttribute("user", listUser);
+				m.addAttribute("role", s.getAttribute("role"));
+				m.addAttribute("msg", null);
+				System.out.println("Il y a " + listUser.size() + " users dans la base de données");
+				return "admin/affichageUser";
 		}
 		
 	// ===> mod user
@@ -223,11 +228,16 @@ public class AdminController {
 			// pour l'affichage des produits
 			List<Produit> listPrd = (List<Produit>) prdImp.getPrd();
 			
-			// creation d'attributs pour l'affichage
-			m.addAttribute("produit", listPrd);
-			m.addAttribute("role", s.getAttribute("role"));
-			System.out.println("Il y a  "+listPrd.size() + " produits dans la base de données");
-			return "admin/affichageProduit";
+			// condition d'affichage liste selon role
+			if(s.getAttribute("role") == "rh") {
+				m.addAttribute("msg", "Vous n'avez pas les privilièges pour cette action");
+			} 
+				// creation d'attributs pour l'affichage
+				m.addAttribute("produit", listPrd);
+				m.addAttribute("role", s.getAttribute("role"));
+				m.addAttribute("msg", null);
+				System.out.println("Il y a  "+listPrd.size() + " produits dans la base de données");
+				return "admin/affichageProduit";
 		}
 	
 	// ====> mod Prd
@@ -313,9 +323,14 @@ public class AdminController {
 		// creation de la collection pour l'affichage des Emp
 		List<Employee> listEmp = (List<Employee>) empImp.getEmpList();
 		
+		// condition d'affichage liste selon role
+		if(s.getAttribute("role") != "Super-admin" || s.getAttribute("role") != "rh") {
+			m.addAttribute("msg", "Vous n'avez pas les privilièges pour cette action");
+		} 
 		// creation d'attribut pour l'affichage
 		m.addAttribute("emp", listEmp);
 		m.addAttribute("role", s.getAttribute("role"));
+		m.addAttribute("msg", null);
 		System.out.println("Il y a " + listEmp.size() + " enregistrements d'employees dans la base de données");
 		return "admin/affichageEmployee";
 	}
@@ -328,7 +343,7 @@ public class AdminController {
 			@RequestParam(name="nom", required = false)String nom,
 			@RequestParam(name="prenom", required = false) String prenom,
 			@RequestParam(name= "email", required = false) String email,
-			@RequestParam(name= "mdp", required = false) String mdp,
+			@RequestParam(name= "password", required = false) String password,
 			@RequestParam(name= "role", required = false) String role,
 			@RequestParam(name="photo", required = false) MultipartFile photo, 
 			@RequestParam(name= "id", required = false) String id,
@@ -368,7 +383,7 @@ public class AdminController {
 					emp.setNom(nom);
 					emp.setPrenom(prenom);
 					emp.setEmail(email);
-					emp.setPassword(mdp);
+					emp.setPassword(password);
 					emp.setRole(role);
 					emp.setPhoto(photo.getOriginalFilename());
 					
@@ -394,15 +409,23 @@ public class AdminController {
 	
 	// ====> liste cart
 	@RequestMapping("/getCart")
-	public String toGetCart(Model m, HttpSession s) {
+	public String toGetCart(Model m, HttpSession s, String idPrd) {
 		
 		// pour l'affichage de la liste des paniers
 		List<Panier> listCart = (List<Panier>) cartImp.getCartList();
 		
-		// creation d'attributs pour l'affichage
-		m.addAttribute("carts", listCart);
-		m.addAttribute("role", s.getAttribute("role"));
-		return "admin/affichagePanier";
+		
+		
+		
+		// condition d'affichage liste selon role
+		if(s.getAttribute("role") != "Super-admin") {
+			m.addAttribute("msg", "Vous n'avez pas les privilièges pour cette action");
+		} 
+			// creation d'attributs pour l'affichage
+			m.addAttribute("carts", listCart);
+			m.addAttribute("role", s.getAttribute("role"));
+			m.addAttribute("msg", null);
+			return "admin/affichagePanier";
 	}
 	
 	// ====> mod cart
@@ -431,7 +454,6 @@ public class AdminController {
 		
 		return "redirect:/getCart";
 	}
-	
 	
 	// ====> del cart
 	@RequestMapping("/deleteCart/{id}")
